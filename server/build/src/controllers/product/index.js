@@ -67,6 +67,15 @@ class ProductController {
         res.status(500).send("Failed to get product");
       }
     });
+    this.getProductsById = (req, res) => __async(this, null, function* () {
+      try {
+        const { id } = req.params;
+        const product = yield this.Product.getProductById(id);
+        res.status(200).send(product);
+      } catch (error) {
+        res.status(500).send("Failed to get product");
+      }
+    });
     this.deleteProduct = (req, res) => __async(this, null, function* () {
       try {
         const { id } = req.params;

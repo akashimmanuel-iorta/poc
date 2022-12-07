@@ -39,6 +39,7 @@ var __async = (__this, __arguments, generator) => {
 };
 var import_express = __toESM(require("express"));
 var import_mongoose = __toESM(require("mongoose"));
+var import_cors = __toESM(require("cors"));
 var import_env = require("../src/config/env");
 var import_routes = __toESM(require("./routes"));
 var import_product = __toESM(require("./routes/product"));
@@ -49,6 +50,7 @@ class App {
     this.app = (0, import_express.default)();
     this.app.use(import_express.default.json());
     this.app.use(import_express.default.urlencoded({ extended: true }));
+    this.app.use((0, import_cors.default)());
     this.initDB();
     this.initRoutes(routes);
     this.listen();

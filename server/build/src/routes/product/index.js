@@ -38,9 +38,13 @@ class ProductRoute {
   }
   initializeRoutes() {
     this.router.get(this.path, this.productController.getProducts);
+    this.router.get(`${this.path}/:id`, this.productController.getProductsById);
     this.router.post(this.path, this.productController.createProduct);
     this.router.patch(`${this.path}/:id`, this.productController.updateProduct);
-    this.router.delete(`${this.path}/:id`, this.productController.deleteProduct);
+    this.router.delete(
+      `${this.path}/:id`,
+      this.productController.deleteProduct
+    );
   }
 }
 var product_default = ProductRoute;

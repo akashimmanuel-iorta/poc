@@ -29,6 +29,9 @@ class ProductService {
   getProducts() {
     return this.product.find();
   }
+  getProductById(id) {
+    return this.product.find({ _id: id });
+  }
   createProduct(data) {
     return this.product.create(data);
   }
