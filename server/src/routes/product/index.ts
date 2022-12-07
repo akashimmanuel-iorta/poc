@@ -1,4 +1,5 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { upload } from "../..";
 import ProductController from "../../controllers/product";
 
 interface Routes {
@@ -24,6 +25,10 @@ class ProductRoute implements Routes {
     this.router.delete(
       `${this.path}/:id`,
       this.productController.deleteProduct
+    );
+    this.router.post(
+      `${this.path}/form`,upload.single("file"),
+      this.productController.createProductWithFormData
     );
   }
 }

@@ -1,9 +1,13 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { AppEnv } from "../src/config/env";
 import IndexRoute from "./routes";
 import ProductRoute from "./routes/product";
+import AuthRoute from "./routes/auth";
+import multer from "multer";
+export const upload = multer({ dest: "uploads/" });
 
 const { MONGODB_URL } = AppEnv;
 
@@ -13,9 +17,10 @@ class App {
 
   constructor(routes: any) {
     this.app = express();
-    this.app.use(express.json({limit: '10mb'}));
+    this.app.use(express.json({ limit: "10mb" }));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cors());
+    this.app.use(cookieParser());
     this.initDB();
     this.initRoutes(routes);
     this.listen();
@@ -47,4 +52,4 @@ class App {
   }
 }
 
-new App([new IndexRoute(), new ProductRoute()]);
+new App([new IndexRoute(), new ProductRoute(), new AuthRoute()]);

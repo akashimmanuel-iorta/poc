@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ProductService from "../../services/product";
+import fs from "fs";
 
 const smpData = [
   {
@@ -83,6 +84,22 @@ class ProductController {
       res.status(200).send(product);
     } catch (error) {
       res.status(500).send("Failed to update product");
+    }
+  };
+
+  public createProductWithFormData = async (req: Request, res: Response) => {
+    try {
+      console.log(req.file, req.body.name);
+      const binaryData = fs.readFileSync(req.file?.path ?? "");
+      const base64String = new Buffer(binaryData).toString("base64");
+      const d = {
+        avatar: base64String,
+        ...req.body,
+      };
+      const product = await this.Product.createProduct(d);
+      res.status(200).send(product);
+    } catch (error) {
+      res.status(500).send("Failed to create product");
     }
   };
 }
